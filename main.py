@@ -8,42 +8,42 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.config['DEBUG'] = True
 #TODO
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://blogz:blogz@localhost:8889/blogz'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://Movies2Watch:Movies2Watch@localhost:8889/Movies2Watch'
 app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 app.secret_key = 'poop'
 
-class BaseModel(db.Model):
+class Media(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100))
-    release_date = db.Column(db.Integer)
-    #TODO watched
+    type = db.Column(db.String(100))
     genre = db.Column(db.String(100))
+    release_date = db.Column(db.Integer)
     notes = db.Column(db.String(1000))
+    #TODO consumed
 
-    def __init__(self, title, genre, release_date, notes, watched=False):
+    def __init__(self, title, type, genre, release_date, notes, consumed=False):
         self.title = title
         self.genre = genre
         self.release_date = release_date
         self.notes = notes
+        self.consumed = consumed
 
-    def IsWatched(self):
-        print(self.watched)
-        return self.watched
-
-    def Watched(self):
-        #TODO
-        pass
+    def Consumed(self):
+        self.consumed = True
 
 
-class Movie(db.Model, BaseModel):
-    #TODO
-    pass
+@app.route("/")
+def index():
+    return redirect("/home")
 
-
-def main():
-    pass
+@app.route("/home", methods= ['GET', 'POST'])
+def home():
+    if request.method == 'POST':
+        add_name = request.form["add_name"]
+        print(add_name) 
+    return render_template("home.html")
 
 
 if __name__ == '__main__':
-    main()
+    app.run()
