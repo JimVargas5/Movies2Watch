@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1> Did I consume this media? </h1>
+<table>
+    <tr>
+        <td> <b> ID </b> </td>
+        <td> <b> Title </b> </td>
+        <td> <b> Type </b> </td>
+        <td> <b> Genre </b> </td>
+        <td> <b> Release Date </b> </td>
+        <td> <b> Notes </b> </td>
+    </tr>
+    <tr>
+        <td> {{ existing_media.id }} </td>
+        <td> {{ existing_media.title }} </td>
+        <td> {{ existing_media.type }} </td>
+        <td> {{ existing_media.genre }} </td>
+        <td> {{ existing_media.release_date }} </td>
+        <td> {{ existing_media.notes }} </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>
+            <form method= 'POST'>
+                <input type= "submit" value= "Yes" />
+            </form>
+        </td>
+        <td>
+            <a href= "/"> No </a>
+        </td>
+    </tr>
+</table>
+
+{% endblock %}

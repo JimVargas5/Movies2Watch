@@ -52,8 +52,20 @@ def home():
         db.session.commit()
         return redirect("/")
 
-    Medias2Consume = Media.query.all()
+    Medias2Consume = Media.query.filter_by(consumed= False).all()
     return render_template("home.html", Medias2Consume= Medias2Consume)
+
+@app.route("/consume", methods= ['POST', 'GET'])
+def consume():
+    id = request.args.get('media')
+    existing_media = Media.query.filter_by(id= id).first()
+    if request.method == 'POST':
+        existing_media.Consumed()
+        db.session.add(existing_media)
+        db.session.commit()
+        return redirect("/")
+
+    return render_template("consume.html", existing_media= existing_media)
 
 
 if __name__ == '__main__':

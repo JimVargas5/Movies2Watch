@@ -4,11 +4,11 @@
 <h1> Add Media </h1>
 <table>
     <tr>
-        <td> <strong> Title </strong> </td>
-        <td> <strong> Type </strong> </td>
-        <td> <strong> Genre </strong> </td>
-        <td> <strong> Release Date </strong> </td>
-        <td> <strong> Notes </strong> </td>
+        <td> <b> Title </b> </td>
+        <td> <b> Type </b> </td>
+        <td> <b> Genre </b> </td>
+        <td> <b> Release Date </b> </td>
+        <td> <b> Notes </b> </td>
     </tr>
     <tr>
         <form method= 'POST'>
@@ -24,23 +24,23 @@
 <h1> Media Added </h1>
 <table>
     <tr>
-        <td> <strong> Name </strong> </td>
-        <td> <strong> Type </strong> </td>
-        <td> <strong> Genre </strong> </td>
-        <td> <strong> Release Date </strong> </td>
-        <td> <strong> Notes </strong> </td>
+        <td> <b> ID </b> </td>
+        <td> <b> Name </b> </td>
+        <td> <b> Type </b> </td>
+        <td> <b> Genre </b> </td>
+        <td> <b> Release Date </b> </td>
+        <td> <b> Notes </b> </td>
     </tr>
     {% for media in Medias2Consume %}
         <tr>
+            <td> {{ media.id }} </td>
             <td> {{ media.title }} </td>
             <td> {{ media.type }} </td>
             <td> {{ media.genre }} </td>
             <td> {{ media.release_date }} </td>
             <td> {{ media.notes }} </td>
             <td>
-                <form>
-                    <input name= "consumed" type= "submit" value= "Consumed" />
-                </form>
+                <a href= "/consume?media={{ media.id }}">Consume</a>
             </td>
         </tr>
     {% endfor %}
