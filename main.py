@@ -20,10 +20,11 @@ class Media(db.Model):
     genre = db.Column(db.String(100))
     release_date = db.Column(db.Integer)
     notes = db.Column(db.String(1000))
-    #TODO consumed
+    consumed = db.Column(db.Boolean)
 
     def __init__(self, title, type, genre, release_date, notes, consumed=False):
         self.title = title
+        self.type = type
         self.genre = genre
         self.release_date = release_date
         self.notes = notes
@@ -40,9 +41,19 @@ def index():
 @app.route("/home", methods= ['GET', 'POST'])
 def home():
     if request.method == 'POST':
-        add_name = request.form["add_name"]
-        print(add_name) 
-    return render_template("home.html")
+        add_title = request.form["add_title"]
+        add_type = request.form["add_type"]
+        add_genre = request.form["add_genre"]
+        add_release_date = request.form["add_release_date"]
+        add_notes = request.form["add_notes"]
+
+        NewMedia = Media(add_title, add_type, add_genre, add_release_date, add_notes)
+        db.session.add(NewMedia)
+        db.session.commit()
+        return redirect("/")
+
+    Medias2Consume = Media.query.all()
+    return render_template("home.html", Medias2Consume= Medias2Consume)
 
 
 if __name__ == '__main__':
